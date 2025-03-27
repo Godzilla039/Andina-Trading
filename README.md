@@ -18,6 +18,8 @@ Andina Trading es un aplicativo diseñado para facilitar la gestión y operació
 │── .all-contributorsrc
 │── package.json
 │── LICENSE
+```
+
 
 ## 🚀 Características
 - 📊 **Gestión de cartera:** Registro y monitoreo de activos financieros.
@@ -26,11 +28,12 @@ Andina Trading es un aplicativo diseñado para facilitar la gestión y operació
 - 🔒 **Seguridad y autenticación:** Acceso seguro con múltiples niveles de permisos.
 
 ## 🛠️ Tecnologías Utilizadas
+```
 - **Backend:** [Node.js, Javascript]
 - **Frontend:** [Lenguaje de etiqueta HTML y CSS, biblioteca Bootstrap]
 - **Base de Datos:** [Próximas a definir]
 - **Autenticación:** [APIS próximas a definir]
-
+```
 
 ### Configuración
 1. Crear un archivo de entorno `.env` con las variables necesarias.
