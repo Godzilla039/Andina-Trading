@@ -50,7 +50,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tbody>
     <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Godzilla039"><img src="https://avatars.githubusercontent.com/u/117949567?v=4?s=100" width="100px;" alt="Diego Esteban Reyna Rojas"/><br /><sub><b>Diego Esteban Reyna Rojas</b></sub></a><br /><a href="https://github.com/Godzilla039/Andina-Trading/commits?author=Godzilla039" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Godzilla039"><img src="https://avatars.githubusercontent.com/u/117949567?v=4?s=100" width="100px;" alt="Diego Esteban Reyna Rojas"/><br /><sub><b>Diego Esteban Reyna Rojas</b></sub></a><br /><a href="https://github.com/Godzilla039/Andina-Trading/commits?author=Godzilla039" title="Code">💻</a> <a href="https://github.com/Godzilla039/Andina-Trading/commits?author=Godzilla039" title="Documentation">📖</a></td>
     </tr>
   </tbody>
   <tfoot>
