@@ -6,6 +6,19 @@
 ## 📌 Descripción
 Andina Trading es un aplicativo diseñado para facilitar la gestión y operación de una casa de valores. Permite a los usuarios realizar seguimiento de inversiones y gestionar carteras de activos de manera eficiente y segura.
 
+## 📂 Estructura del Proyecto
+```
+/andina-trading
+│── /doc
+|──── /planning (Análisis)
+|──── /design (diseño)
+│── /src
+|──── /(a definir)
+│── README.md
+│── .all-contributorsrc
+│── package.json
+│── LICENSE
+
 ## 🚀 Características
 - 📊 **Gestión de cartera:** Registro y monitoreo de activos financieros.
 - 🔍 **Seguimiento de mercado:** Información en tiempo real sobre valores e índices.
