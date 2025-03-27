@@ -1,0 +1,20 @@
+{
+  "name": "andina-trading",
+  "version": "1.0.0",
+  "description": "Andina Trading es un aplicativo diseñado para facilitar la gestión y operación de una casa de valores. Permite a los usuarios realizar seguimiento de inversiones y gestionar carteras de activos de manera eficiente y segura.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Godzilla039/Andina-Trading.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Godzilla039/Andina-Trading/issues"
+  },
+  "homepage": "https://github.com/Godzilla039/Andina-Trading#readme"
+}
