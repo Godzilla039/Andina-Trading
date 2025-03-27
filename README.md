@@ -1,6 +1,6 @@
 # Andina Trading
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## 📌 Descripción
@@ -51,6 +51,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tbody>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Godzilla039"><img src="https://avatars.githubusercontent.com/u/117949567?v=4?s=100" width="100px;" alt="Diego Esteban Reyna Rojas"/><br /><sub><b>Diego Esteban Reyna Rojas</b></sub></a><br /><a href="https://github.com/Godzilla039/Andina-Trading/commits?author=Godzilla039" title="Code">💻</a> <a href="https://github.com/Godzilla039/Andina-Trading/commits?author=Godzilla039" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/JoannZamudio11"><img src="https://avatars.githubusercontent.com/u/126726984?v=4?s=100" width="100px;" alt="JoannZamudio11"/><br /><sub><b>JoannZamudio11</b></sub></a><br /><a href="https://github.com/Godzilla039/Andina-Trading/commits?author=JoannZamudio11" title="Documentation">📖</a></td>
     </tr>
   </tbody>
   <tfoot>
