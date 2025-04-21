@@ -1,0 +1,27 @@
+# --- Node.js dependencies ---
+node_modules/
+
+# --- Entornos y variables sensibles ---
+.env
+
+# --- Logs ---
+logs/
+*.log
+npm-debug.log*
+package-lock.json
+
+# --- Archivos temporales del sistema ---
+.DS_Store
+Thumbs.db
+
+# --- Archivos temporales de procesos ---
+*.pid
+*.seed
+
+# --- Configuraciones de IDE ---
+.vscode/
+.idea/
+
+# --- Carpetas de compilación o salida ---
+/dist/
+/build/
