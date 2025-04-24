@@ -13,7 +13,20 @@ Andina Trading es un aplicativo diseñado para facilitar la gestión y operació
 |──── /planning (Análisis)
 |──── /design (diseño)
 │── /src
-|──── /(a definir)
+|──── /controllers
+|────── PageControllers.js
+|──── /public
+|────── /assets
+|──── /routes
+|────── router.js
+|──── /views
+|────── heatmap.ejs
+|────── home.ejs
+|────── layout.ejs
+|────── news.ejs
+|────── notifications.ejs
+|────── tables.ejs
+|──── app.js
 │── README.md
 │── .all-contributorsrc
 │── package.json
