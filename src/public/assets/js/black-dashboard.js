@@ -253,3 +253,29 @@ function hexToRGB(hex, alpha) {
     return "rgb(" + r + ", " + g + ", " + b + ")";
   }
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    const currentPath = window.location.pathname;
+    const navItems = document.querySelectorAll('.sidebar .ath-nav-item');
+
+    navItems.forEach(item => {
+      const link = item.querySelector('a');
+      const title = link?.querySelector('p')?.innerText;
+
+      if (link && link.getAttribute('href') === currentPath) {
+        item.classList.add('active');
+
+        // Actualizar el título del navbar
+        const navbarTitle = document.getElementById('navbar-title');
+        if (navbarTitle && title) {
+          navbarTitle.textContent = title;
+        }
+
+      } else {
+        item.classList.remove('active');
+      }
+    });
+});
+
+

@@ -10,8 +10,18 @@ const notificationsUser = (req, res)=>{
     res.render('notifications')
 }
 
+const heatMap = (req, res)=>{
+    res.render('heatmap')
+}
+
+const news = (req, res)=>{
+    res.render('news')
+}
+
 module.exports = {
     mainView,
     tables,
-    notificationsUser
+    notificationsUser,
+    heatMap,
+    news
 }
