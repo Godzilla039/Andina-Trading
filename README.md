@@ -28,8 +28,11 @@ Andina Trading es un aplicativo diseñado para facilitar la gestión y operació
 |────── tables.ejs
 |──── app.js
 │── README.md
+│── .env
+│── .gitignore
 │── .all-contributorsrc
 │── package.json
+│── package-lock.json
 │── LICENSE
 ```
 
@@ -43,23 +46,30 @@ Andina Trading es un aplicativo diseñado para facilitar la gestión y operació
 ## 🛠️ Tecnologías Utilizadas
 ```
 - **Backend:** [Node.js, Javascript]
-- **Frontend:** [Lenguaje de etiqueta HTML y CSS, biblioteca Bootstrap]
+- **Frontend:** [Lenguaje de etiqueta HTML y CSS, biblioteca Bootstrap, plantilla modificada "Black dashboard" by Creative Tim]
 - **Base de Datos:** [Próximas a definir]
-- **Autenticación:** [APIS próximas a definir]
+- **Autenticación/microservicios:** [newsapi, TradingView]
 ```
 
 ### Configuración
 1. Crear un archivo de entorno `.env` con las variables necesarias.
 2. Configurar credenciales de acceso a la base de datos.
 3. Ejecutar migraciones si es necesario.
+4. Tener instalado node.js y activas las funciones npm
 
 ## ▶️ Uso
 ```sh
-# Iniciar el backend
-todo: comando de inicio del backend
+# Instalar las librerías requeridas para los módulos de JavaScript
+todo: npm install
 
-# Iniciar el frontend
-todo: comando de inicio del frontend
+# Instalar el dotenv para el manejo de APIS
+todo: npm dotenv
+
+# Instalar el dotenv para el manejo de APIS
+todo: npm dotenv
+
+# Ejecutar el servidor local de app.js
+todo: npm start
 ```
 
 ## 📜 Licencia
