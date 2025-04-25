@@ -1,0 +1,8 @@
+Cordial saludo
+
+En esta segunda entrega, tomamos la observación realizada y juntamos la justificación técnica en un 
+documento llamado "informe final" que está dentro de la carpeta doc. En él se pueden encontrar justificado
+de manera correcta los puntos solicitados para dicha revisión, además de un avance en los módulos del producto
+final. 
+
+Tenga un feliz día.
