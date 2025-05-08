@@ -278,4 +278,40 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+// public/js/theme.js
+document.addEventListener('DOMContentLoaded', function () {
+  const switchButton = document.getElementById('darkModeSwitch');
+  const body = document.body;
+
+  function applyTheme(theme) {
+    if (theme === 'light') {
+      body.classList.add('white-content');
+      if (switchButton) switchButton.checked = true;
+    } else {
+      body.classList.remove('white-content');
+      if (switchButton) switchButton.checked = false;
+    }
+
+    // Emitir evento personalizado
+    document.dispatchEvent(new CustomEvent('themeChanged', { detail: theme }));
+  }
+
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  applyTheme(savedTheme);
+
+  if (switchButton) {
+    switchButton.addEventListener('click', function () {
+      const isLight = body.classList.contains('white-content');
+      const newTheme = isLight ? 'dark' : 'light';
+      localStorage.setItem('theme', newTheme);
+      applyTheme(newTheme);
+    });
+  }
+
+  window.getCurrentTheme = () => localStorage.getItem('theme') || 'dark';
+});
+
+
+
+
 

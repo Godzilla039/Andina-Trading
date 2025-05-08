@@ -17337,11 +17337,7 @@ table.tablesorter thead tr .headerSortDown {
 
 .sidebar,
 .off-canvas-sidebar {
-  background: #ba54f5;
-  background: -webkit-linear-gradient(0deg, #ba54f5 0%, #e14eca 100%);
-  background: -o-linear-gradient(0deg, #ba54f5 0%, #e14eca 100%);
-  background: -moz-linear-gradient(0deg, #ba54f5 0%, #e14eca 100%);
-  background:  linear-gradient(180deg, #f6b331, #d9992b);
+  background: #404670; 
   height: calc(100vh - 90px);
   width: 230px;
   position: fixed;
@@ -17656,7 +17652,7 @@ table.tablesorter thead tr .headerSortDown {
   position: absolute;
   bottom: 0;
   right: 15px;
-  height: 1px;
+  height: 2px;
   width: calc(100% - 30px);
   background: rgba(255, 255, 255, 0.5);
 }
@@ -17806,7 +17802,10 @@ table.tablesorter thead tr .headerSortDown {
   float: right;
   width: 100%;
   min-height: 100vh;
-  border-top: 2px solid #fbc658;
+  
+  /* CAMBIAR LÍNEA HORIZONTAL DE COLOR*/
+  border-top: 2px solid #7B84C8; 
+
   background: linear-gradient(#1e1e2f, #1e1e24);
   -webkit-transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);
   -moz-transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);
@@ -20485,14 +20484,14 @@ Copyright (c) 2015 Daniel Eden
 }
 
 .simple-mode-toggle-checkbox:checked + .simple-mode-toggle-slider {
-  background-color: #f2b031;
+  background-color: #7B84C8;
 }
 
 .simple-mode-toggle-checkbox:checked + .simple-mode-toggle-slider:before {
   transform: translateX(18px);
 }
 
-/* NEWS */
+/* NEWS - DARK*/
 
   .bg-gray-800 {
     background-color: #2d3748;
@@ -20504,16 +20503,16 @@ Copyright (c) 2015 Daniel Eden
     transform: translateY(-3px);
   }
 
-/*Menú y línea en tonos amarillos*/
+/* Menú y línea en azul más claro que #26283a */
 
 .ath-sidebar {
   height: 100vh;
   width: 240px;
-  background: linear-gradient(180deg, #f6b331, #d9992b);
+  background: linear-gradient(180deg, #3f4469, #353956); /* Tonos más claros */
   color: white;
   font-family: 'Arial', sans-serif;
   padding: 20px;
-  padding-right: 30px; /* Más espacio entre menú y contenido */
+  padding-right: 30px;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.15);
   border-radius: 20px 10px 0 0;
 }
@@ -20532,7 +20531,7 @@ Copyright (c) 2015 Daniel Eden
 }
 
 .ath-sidebar-title:hover {
-  color: #835d00; /* Amarillo muy oscuro casi negro */
+  color: #aab8d4; /* Azul claro suave */
 }
 
 .ath-nav {
@@ -20544,25 +20543,35 @@ Copyright (c) 2015 Daniel Eden
 .ath-nav-item {
   display: flex;
   align-items: center;
-  padding: 16px 14px; /* Más alto */
-  font-size: 16px; /* Letra más grande */
+  padding: 0;
+  font-size: 16px;
   color: white;
   cursor: pointer;
   border-radius: 12px;
-  transition: background 0.3s ease-in-out, padding-left 0.3s, color 0.3s ease;
+  transition: background 0.5s ease-in-out, padding-left 0.3s, color 0.3s ease;
   position: relative;
-  margin-bottom: 12px; /* Más espacio entre items */
+  margin-bottom: 12px;
 }
 
 .ath-nav-icon {
   margin-right: 14px;
-  font-size: 18px; /* Iconos más grandes */
+  font-size: 18px;
+  color: white; /* Color inicial para los iconos */
+  transition: color 0.5s ease; /* Transición suave para el cambio de color */
 }
 
 .ath-nav-item:hover {
-  background: rgba(0, 0, 0, 0.15);
-  padding-left: 18px;
-  color: #835d00; /* Letra casi negra en hover */
+  background: rgba(255, 255, 255, 0.1);
+  padding-left: 16px; /* Movimiento más sutil */
+  color: #aab8d4;
+}
+
+.ath-nav-item:hover .ath-nav-text {
+  color: #aab8d4; /* Color azul para el texto al hacer hover */
+}
+
+.ath-nav-item:hover .ath-nav-icon {
+  color: #aab8d4; /* Color azul para los iconos al hacer hover */
 }
 
 .ath-nav-link {
@@ -20571,13 +20580,15 @@ Copyright (c) 2015 Daniel Eden
   color: inherit;
   text-decoration: none;
   width: 100%;
+  padding: 16px 14px;
+  transition: padding-left 0.5s cubic-bezier(0.28, 0.84, 0.42, 1);
 }
 
 .ath-nav-text {
   margin: 0;
+  transition: color 0.3s ease; /* Transición suave para el texto */
 }
 
-/* Indicador activo con círculo blanco */
 .ath-nav-item.active::before {
   content: "";
   position: absolute;
@@ -20588,4 +20599,4 @@ Copyright (c) 2015 Daniel Eden
   height: 8px;
   background-color: white;
   border-radius: 50%;
-}
+}   

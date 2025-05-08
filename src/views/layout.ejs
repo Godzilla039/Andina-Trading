@@ -121,7 +121,7 @@
               <li class="nav-item d-flex align-items-center mr-3">
                 <!-- Modo Oscuro Toggle -->
                 <label class="simple-mode-toggle-container mb-0" style="left: 40px;top: -2px;">
-                  <input type="checkbox" id="modeToggle" class="simple-mode-toggle-checkbox">
+                  <input type="checkbox" id="darkModeSwitch" class="simple-mode-toggle-checkbox">
                   <span class="simple-mode-toggle-slider"></span>
                 </label>
               </li>
@@ -342,27 +342,6 @@
         application: "black-dashboard-free"
       });
   </script>
-  <script>
-    $(document).ready(function () {
-      // Detecta el cambio del switch
-      $('#modeToggle').on('change', function () {
-        if (this.checked) {
-          $('body').addClass('change-background');
-          setTimeout(function () {
-            $('body').removeClass('change-background');
-            $('body').addClass('white-content');
-          }, 50);
-        } else {
-          $('body').addClass('change-background');
-          setTimeout(function () {
-            $('body').removeClass('change-background');
-            $('body').removeClass('white-content');
-          }, 50);
-        }
-      });
-    });
-  </script>
-  
   <script src="/assets/js/black-dashboard.js"></script>
 
 </body>
