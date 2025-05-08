@@ -17,6 +17,9 @@ app.set('views', path.join(__dirname, 'views'));
 const router = require('./routes/router')
 app.use(router.routes)
 
+const modeRoutes = require('./routes/theme');
+app.use('/mode', modeRoutes);
+
 //end
 
 app.get('/api/news', async (req, res) => {
