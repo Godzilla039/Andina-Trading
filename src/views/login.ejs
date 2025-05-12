@@ -1,0 +1,75 @@
+ <div class="ath-login-container">
+    <div class="ath-login-panel">
+      <div class="ath-brand-section">
+        <svg class="ath-brand-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+        </svg>
+        <h1 class="ath-brand-title">Bienvenido a Andina Trade Hub</h1>
+        <p class="ath-brand-subtitle">simple, rápido, rentable.</p>
+      </div>
+      
+      <% if (message && message.length > 0) { %>
+        <div class="ath-auth-alert"><i class="fas fa-exclamation-circle"></i><%= message %></div>
+      <% } %>
+      
+      <div class="ath-auth-options">
+        <form action="/auth/google" method="get" class="ath-google-auth">
+          <button type="submit" class="ath-btn ath-google-btn">
+            <i class="fab fa-google"></i> Iniciar con Google
+            <span class="ath-btn-wave"></span>
+          </button>
+        </form>
+
+        <div class="ath-auth-divider">
+          <span class="ath-divider-text">o ingresa con tu correo</span>
+        </div>
+        
+        <form action="/login" method="POST" class="ath-auth-form">
+          <div class="ath-form-group">
+            <div class="ath-input-wrapper">
+              <i class="fas fa-envelope"></i>
+              <input type="email" name="email" id="email" placeholder="Correo electrónico" required>
+            </div>
+          </div>
+          
+          <div class="ath-form-group">
+            <div class="ath-input-wrapper">
+              <i class="fas fa-lock"></i>
+              <input type="password" name="password" id="password" placeholder="Contraseña" required>
+            </div>
+            <a href="/forgot-password" class="ath-forgot-password">¿Olvidaste tu contraseña?</a>
+          </div>
+          
+          <button type="submit" class="ath-btn ath-primary-btn">
+            Ingresar
+            <span class="ath-btn-wave"></span>
+          </button>
+        </form>
+      </div>
+
+      <div class="ath-auth-footer">
+        ¿No tienes cuenta? <a href="/register">Regístrate aquí</a>
+      </div>
+    </div>
+    
+    <div class="ath-info-panel">
+      <div class="ath-info-content">
+        <h2>Potencia tus operaciones</h2>
+        <ul class="ath-features-list">
+        <li><i class="fas fa-chart-line"></i> Dashboard en tiempo real</li>
+        <li><i class="fas fa-project-diagram"></i> Organiza tu plan de inversión</li>  
+        <li><i class="fas fa-file-alt"></i> Generación de reportes</li>  
+        <li><i class="fas fa-bell"></i> Alertas y notificaciones</li>  
+        <li><i class="fas fa-chart-area"></i> Gráficos avanzados</li>  
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.querySelector('.ath-auth-form').addEventListener('submit', function(e) {
+      const button = this.querySelector('.ath-primary-btn');
+      button.disabled = true;
+      button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verificando...';
+    });
+  </script>
