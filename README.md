@@ -62,12 +62,6 @@ Andina Trading es un aplicativo diseñado para facilitar la gestión y operació
 # Instalar las librerías requeridas para los módulos de JavaScript
 todo: npm install
 
-# Instalar el dotenv para el manejo de APIS
-todo: npm dotenv
-
-# Instalar el dotenv para el manejo de APIS
-todo: npm dotenv
-
 # Ejecutar el servidor local de app.js
 todo: npm start
 ```
