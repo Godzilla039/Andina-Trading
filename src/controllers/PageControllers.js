@@ -1,38 +1,42 @@
 
 //Módulo de login
 
-const isAuthenticated = (req, res, next) => {
-  // Permite acceso a rutas de autenticación
-  if (req.path === '/login' || req.path === '/register') {
-    return next();
-  }
-  
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  
-  res.redirect('/login');
-};
-
 const login = (req, res) => {
-  res.render('login', { 
-    message: req.flash('error'),
-    layout: 'modules/auth' 
+  const registrationSuccess = req.session.registrationSuccess;
+  delete req.session.registrationSuccess; // Limpiar después de mostrar
+  
+  res.render('login', {
+      layout: 'modules/auth',
+    message: req.flash('message') || '',
+    messages: {
+      success: req.flash('success').length > 0,
+      error: req.flash('error').length > 0
+  }
   });
 };
 
 const register = (req, res) => {
-  res.render('register', { 
-    errors: [], 
-    data: {},
-    layout: 'modules/auth'
+  res.render('register', {
+      errors: [],
+      data: {},
+      layout: 'modules/auth'
+  });
+};
+
+const terms = (req, res) => {
+  res.render('terms', {
+      layout: 'modules/auth'
   });
 };
 
 //módulo de dashboard
 
-const mainView = (req, res) => {
+const dashboard = (req, res) => {
   res.render('home');
+};
+
+const maps = (req, res) => {
+  res.render('maps');
 };
 
 const tables = (req, res) => {
@@ -52,11 +56,13 @@ const news = (req, res) => {
 };
 
 module.exports = {
-  mainView,
+  dashboard,
   tables,
   notificationsUser,
   heatMap,
   news,
   login,
-  register
+  register,
+  terms,
+  maps
 };
