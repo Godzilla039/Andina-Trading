@@ -1,16 +1,30 @@
+<!-- Contenedor principal del layout de login -->
 <div class="ath-login-container">
+
+  <!-- Panel principal de autenticación -->
   <div class="ath-login-panel">
+
+    <!-- Sección de marca o branding de la aplicación -->
     <div class="ath-brand-section">
-      <svg class="ath-brand-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <!-- Ícono representativo del sistema, formato SVG para escalabilidad -->
+      <svg class="ath-brand-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+           fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+           stroke-linejoin="round" aria-hidden="true">
         <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
       </svg>
+      <!-- Título y eslogan del sistema -->
       <h1 class="ath-brand-title">Bienvenido a Andina Trade Hub</h1>
       <p class="ath-brand-subtitle">Simple, rápido, rentable.</p>
     </div>
 
+    <!-- Mensaje de éxito dinámico, oculto por defecto -->
     <div id="success-message" style="display:none; padding: 15px; margin-bottom: 10px; border: 1px solid #4caf50; color: #155724; background-color: #d4edda; border-radius: 5px; font-weight: 600;"></div>
     
+    <!-- Opciones de autenticación disponibles -->
     <div class="ath-auth-options">
+
+      <!-- 
+      Opción para autenticación con Google (deshabilitada actualmente)
       <form action="/auth/google" method="get" class="ath-google-auth">
         <button type="submit" class="ath-btn ath-google-btn">
           <i class="fab fa-google" aria-hidden="true"></i> 
@@ -18,12 +32,17 @@
           <span class="ath-btn-wave"></span>
         </button>
       </form>
+      -->
 
+      <!-- Divisor visual y textual entre opciones -->
       <div class="ath-auth-divider" aria-hidden="true">
-        <span class="ath-divider-text">o ingresa con tu correo</span>
+        <span class="ath-divider-text">ingresa con tu correo</span>
       </div>
-      
+
+      <!-- Formulario principal de login con método POST -->
       <form id="login-form" action="/login" method="POST" class="ath-auth-form">
+
+        <!-- Campo de entrada: correo electrónico -->
         <div class="ath-form-group">
           <div class="ath-input-wrapper">
             <label for="email" class="sr-only">Correo electrónico</label>
@@ -38,11 +57,12 @@
             >
           </div>
         </div>
-        
+
+        <!-- Campo de entrada: contraseña -->
         <div class="ath-form-group">
           <div class="ath-input-wrapper">
             <label for="password" class="sr-only">Contraseña</label>
-            <i class="fas fa-lock"></i>
+            <i class="fas fa-lock" aria-hidden="true"></i>
             <input
               type="password"
               name="password"
@@ -51,26 +71,33 @@
               placeholder="Contraseña"
               required
               oninput="checkStrength(this.value)"
-            >
+              >  <!-- Verifica la fortaleza de la contraseña -->
+            
+            <!-- Icono para alternar la visibilidad de la contraseña -->
             <span class="toggle-password"><i class="fas fa-eye"></i></span>
           </div>
         </div>
 
+        <!-- Botón de envío del formulario de login -->
         <button type="submit" class="ath-btn ath-primary-btn">
           <span>Ingresar</span>
           <span class="ath-btn-wave"></span>
         </button>
+
       </form>
     </div>
 
+    <!-- Enlace para redirigir a la página de registro -->
     <div class="ath-auth-footer">
       ¿No tienes cuenta? <a href="/register">Regístrate aquí</a>
     </div>
   </div>
-  
+
+  <!-- Panel informativo secundario, solo decorativo -->
   <div class="ath-info-panel" aria-hidden="true">
     <div class="ath-info-content">
       <h2>Potencia tus operaciones</h2>
+      <!-- Lista de beneficios o características del sistema -->
       <ul class="ath-features-list">
         <li><i class="fas fa-chart-line" aria-hidden="true"></i> Dashboard en tiempo real</li>
         <li><i class="fas fa-project-diagram" aria-hidden="true"></i> Organiza tu plan de inversión</li>  
@@ -82,6 +109,7 @@
   </div>
 </div>
 
+<!-- Modal de login, usado para mostrar errores o mensajes importantes -->
 <div id="login-modal" class="modal-overlay" style="display: none;">
   <div class="modal-box">
     <p id="login-modal-message"></p>

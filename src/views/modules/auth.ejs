@@ -1,21 +1,40 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <!-- 
+    Componente: Plantilla de Autenticación 
+    Nivel C4: Componente de Vista dentro del contenedor Web Server (Express + EJS)
+    Propósito: Define el layout base para vistas como login, registro, términos.
+    Tecnologías: HTML5, EJS, Select2, Flatpickr, Font Awesome
+  -->
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inicio de sesión</title>
-  <link rel="stylesheet" href="/assets/css/auth.css">
-  <link rel="icon" href="/assets/img/favicon.ico" type="image/x-icon" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-country-flag@1.0.4/dist/css/select2-country-flag.min.css" />
-</head>
-<body class="auth-page">
 
+  <title>Inicio de sesión</title>
+
+  <!-- Estilos base del módulo de autenticación -->
+  <link rel="stylesheet" href="/assets/css/auth.css">
+
+  <!-- Favicon -->
+  <link rel="icon" href="/assets/img/favicon.ico" type="image/x-icon" />
+
+  <!-- Íconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <!-- Flatpickr para selectores de fecha -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+  <!-- Select2 para dropdowns mejorados -->
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-country-flag@1.0.4/dist/css/select2-country-flag.min.css" />
+</head>
+
+<body class="auth-page">
+  <!-- Renderizado de la vista correspondiente -->
   <%- body %>
 
-  <!-- Carga todos los scripts al final del body -->
+  <!-- Scripts colocados al final para mejor rendimiento -->
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script src="/assets/js/auth.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
