@@ -1,0 +1,182 @@
+<div class="content">
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <div class="card">
+        <div class="card-body">
+          <h2 style="text-align:center">Mapa Interactivo: PIB por País (Banco Mundial)</h2>
+          <div id="map"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+  const map = L.map('map', {
+    center: [20, 0],
+    zoom: 2,
+    minZoom: 2,
+    maxZoom: 5,
+    maxBounds: [
+      [-85, -180],
+      [85, 180]
+    ]
+  });
+  map.setMaxBounds([[-85, -180], [85, 180]]);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors',
+    noWrap: true,
+  }).addTo(map);
+
+  // Función para formatear números grandes
+  function formatNumber(num) {
+    if (!num) return 'No disponible';
+    if (num >= 1e12) return (num / 1e12).toFixed(2) + ' billones';
+    if (num >= 1e9) return (num / 1e9).toFixed(2) + ' mil millones';
+    if (num >= 1e6) return (num / 1e6).toFixed(2) + ' millones';
+    return num.toFixed(2);
+  }
+
+  // Escala de colores para el PIB
+  function getColor(gdp) {
+    return !gdp ? '#214a72' : // Gris para datos faltantes
+           gdp > 1e12 ? '#08519c' :
+           gdp > 5e11 ? '#3182bd' :
+           gdp > 1e11 ? '#6baed6' :
+           gdp > 1e10 ? '#9ecae1' :
+           gdp > 1e9  ? '#c6dbef' :
+                        '#f7fbff';
+  }
+
+  // Crear leyenda
+  const legend = L.control({position: 'bottomright'});
+  legend.onAdd = function(map) {
+    const div = L.DomUtil.create('div', 'info-legend');
+    const grades = [0, 1e9, 1e10, 1e11, 5e11, 1e12];
+    const labels = ['< 1 mil millones', '1-10 mil millones', '10-100 mil millones', 
+                   '100-500 mil millones', '500 mil millones-1 billón', '> 1 billón'];
+    
+    div.innerHTML = '<h4 style="color:black; margin:0;">PIB (USD)</h4>';
+    
+    for (let i = 0; i < grades.length; i++) {
+      div.innerHTML +=
+        '<i class="legend-color" style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+        labels[i] + '<br>';
+    }
+    
+    div.innerHTML += '<i class="legend-color" style="background:#214a72"></i> Sin datos';
+    
+    return div;
+  };
+  legend.addTo(map);
+
+  // Mapeo manual para países problemáticos
+  const manualMappings = {
+    // Ejemplo de mapeos que podrías necesitar
+    'KOS': 'XKX', // Kosovo
+    'BRN': 'BHR', // Bahrein vs Brunei (ejemplo)
+    'COD': 'ZAR', // Congo Democrático
+    // Agrega aquí otros mapeos necesarios según tus pruebas
+  };
+
+  // Cargar datos
+  fetch('https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json')
+    .then(res => res.json())
+    .then(geoData => {
+      axios.get('https://api.worldbank.org/v2/country/all/indicator/NY.GDP.MKTP.CD?format=json&per_page=300&date=2022')
+        .then(res => {
+          const gdpData = res.data[1];
+          const gdpMap = {};
+
+          // Procesar datos del Banco Mundial
+          gdpData.forEach(entry => {
+            if (entry.countryiso3code && entry.value !== null) {
+              gdpMap[entry.countryiso3code] = entry.value;
+            }
+          });
+
+          // Función para obtener el código correcto
+          function getCountryCode(feature) {
+            // 1. Intentar con mapeo manual primero
+            if (manualMappings[feature.id]) {
+              return manualMappings[feature.id];
+            }
+            // 2. Intentar con iso_a3 si existe
+            if (feature.properties.iso_a3) {
+              return feature.properties.iso_a3;
+            }
+            // 3. Usar el ID directo como último recurso
+            return feature.id;
+          }
+
+          // Estilo para cada país
+          function style(feature) {
+            const countryCode = getCountryCode(feature);
+            const gdp = gdpMap[countryCode];
+            return {
+              fillColor: getColor(gdp),
+              weight: 1,
+              opacity: 1,
+              color: 'white',
+              fillOpacity: 0.8
+            };
+          }
+
+          // Popup para cada país
+          function onEachFeature(feature, layer) {
+            const countryCode = getCountryCode(feature);
+            const gdp = gdpMap[countryCode];
+            const gdpText = gdp ? '$' + formatNumber(gdp) : 'No disponible';
+            
+            layer.bindPopup(`
+              <b>${feature.properties.name}</b><br>
+              PIB (2022): ${gdpText}<br>
+              Código usado: ${countryCode}
+            `);
+            
+            layer.on({
+              mouseover: function(e) {
+                const layer = e.target;
+                layer.setStyle({
+                  weight: 2,
+                  color: '#666',
+                  fillOpacity: 0.9
+                });
+                layer.bringToFront();
+              },
+              mouseout: function(e) {
+                geojson.resetStyle(e.target);
+              }
+            });
+          }
+
+          // Crear capa GeoJSON
+          const geojson = L.geoJSON(geoData, {
+            style: style,
+            onEachFeature: onEachFeature
+          }).addTo(map);
+
+          // Mostrar estadísticas en consola
+          let matched = 0;
+          geoData.features.forEach(feature => {
+            const code = getCountryCode(feature);
+            if (gdpMap[code]) matched++;
+          });
+          console.log(`Países mostrados: ${geoData.features.length}`);
+          console.log(`Países con datos de PIB: ${matched}`);
+          console.log(`Porcentaje de cobertura: ${((matched/geoData.features.length)*100).toFixed(1)}%`);
+        })
+        .catch(error => {
+          console.error('Error al cargar datos del PIB:', error);
+          alert('Error al cargar los datos del PIB. Por favor intente más tarde.');
+        });
+    })
+    .catch(error => {
+      console.error('Error al cargar el mapa de países:', error);
+      alert('Error al cargar el mapa de países. Por favor intente más tarde.');
+    });
+</script>

@@ -1,13 +1,15 @@
 const express = require('express')
-const {mainView, tables, notificationsUser, heatMap, news, login, register} = require('../controllers/PageControllers')
+const {dashboard, tables, notificationsUser, heatMap, news, login, register,terms,maps} = require('../controllers/PageControllers')
 const router = express.Router()
 
-router.get('/', mainView)
+router.get('/', login)
+router.get('/terms', terms)
+router.get('/register', register)
 router.get('/tables', tables)
 router.get('/notifications', notificationsUser)
 router.get('/heatmap', heatMap)
 router.get('/news', news)
-router.get('/login', login)
-router.get('/register', register)
+router.get('/maps', maps)
+router.get('/dashboard', dashboard)
 
 module.exports = {routes:router}

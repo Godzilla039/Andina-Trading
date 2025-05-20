@@ -3,16 +3,17 @@ const path = require('path');
 const expressLay = require('express-ejs-layouts');
 const axios = require('axios');
 const dotenv = require('dotenv').config();
+const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
-const flash = require('connect-flash');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const db = require('./database'); 
+const key = require('crypto').randomBytes(64).toString('hex');
+const sqlite3 = require('sqlite3').verbose();
+const bcrypt = require('bcrypt');
 
 const app = express();
 const PORT = 1111;
-
-
 
 // Configuración de EJS y layouts
 app.set('view engine', 'ejs');
@@ -21,18 +22,23 @@ app.set('layout', 'modules/layout'); // Layout por defecto
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 
+//GETS
+
 // Middlewares
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Configuración de sesión y autenticación
+// app.js (parte relevante)
 app.use(session({
-  secret: 'clave_secreta',
+  secret: key,
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
+  cookie: { secure: false } // Cambiar a true en producción con HTTPS
 }));
+
 app.use(passport.initialize());
 app.use(passport.session());
+
 app.use(flash());
 
 // Rutas
@@ -41,6 +47,151 @@ app.use(router.routes);
 
 const modeRoutes = require('./routes/theme');
 app.use('/mode', modeRoutes);
+
+//registrar usuario dentro de la base de datos
+
+app.post('/register', async (req, res) => {
+    console.log('Iniciando proceso de registro...');
+    console.log('Datos recibidos:', req.body);
+    
+    const { name, lastname, birthdate, email, phone, country, password, confirm_password } = req.body;
+
+    // Validaciones básicas
+    if (!name || !email || !password || !confirm_password) {
+        console.log('Faltan campos requeridos');
+        return res.render('register', {
+            message: 'Faltan campos requeridos',
+            messages: { error: true },
+            data: req.body
+        });
+    }
+
+    if (password !== confirm_password) {
+        console.log('Las contraseñas no coinciden');
+        return res.render('register', {
+            message: 'Las contraseñas no coinciden',
+            messages: { error: true },
+            data: req.body
+        });
+    }
+
+    try {
+        console.log('Verificando si el email existe...');
+        // Verificar si el email ya existe
+        db.get("SELECT email FROM users WHERE email = ?", [email], async (err, row) => {
+            if (err) {
+                console.error("Error al verificar email:", err);
+                return res.render('register', {
+                    message: 'Error al verificar el email',
+                    messages: { error: true },
+                    data: req.body
+                });
+            }
+
+            if (row) {
+                console.log('El email ya está registrado:', email);
+                return res.render('register', {
+                    message: 'El email ya está registrado',
+                    messages: { error: true },
+                    data: req.body
+                });
+            }
+
+            console.log('Email disponible, generando hash de contraseña...');
+            // Hash de la contraseña
+            const hashedPassword = await bcrypt.hash(password, 10);
+            console.log('Hash de contraseña generado');
+
+            // Insertar nuevo usuario
+            console.log('Intentando insertar nuevo usuario en la base de datos...');
+            db.run(
+                `INSERT INTO users (name, lastname, birthdate, email, phone, country, password)
+                 VALUES (?, ?, ?, ?, ?, ?, ?)`,
+                [name, lastname, birthdate, email, phone, country, hashedPassword],
+                function (err) {
+                    if (err) {
+                        console.error("Error al registrar usuario:", err);
+                        return res.render('register', {
+                            message: 'Error al registrar el usuario',
+                            messages: { error: true },
+                            data: req.body
+                        });
+                    }
+
+                    console.log('Usuario registrado exitosamente. ID:', this.lastID);
+                    // Redireccionar a login con mensaje de éxito
+                    return res.redirect('/?registrationSuccess=¡Cuenta creada exitosamente! Por favor inicia sesión.');
+                }
+            );
+        });
+    } catch (error) {
+        console.error("Error en el proceso de registro:", error);
+        return res.render('register', {
+            message: 'Error en el servidor',
+            messages: { error: true },
+            data: req.body
+        });
+    }
+});
+
+//revisar la existencia de la cuenta y redirigir al dashboard
+
+app.post('/login', (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ success: false, message: 'Por favor ingresa correo y contraseña' });
+  }
+
+  const db = new sqlite3.Database('./users.db', sqlite3.OPEN_READONLY, (err) => {
+    if (err) {
+      console.error('Error abriendo la base de datos:', err);
+      return res.status(500).json({ success: false, message: 'Error en el servidor (BD)' });
+    }
+
+    db.get("SELECT id, password FROM users WHERE email = ?", [email], async (err, user) => {
+      if (err) {
+        console.error("Error buscando usuario:", err);
+        db.close();
+        return res.status(500).json({ success: false, message: 'Error consultando usuario' });
+      }
+
+      if (!user) {
+        db.close();
+        return res.status(401).json({ success: false, message: 'Usuario o contraseña incorrectos' });
+      }
+
+      try {
+        const passwordMatch = await bcrypt.compare(password, user.password);
+        if (!passwordMatch) {
+          db.close();
+          return res.status(401).json({ success: false, message: 'Usuario o contraseña incorrectos' });
+        }
+
+        if (!req.session) {
+          db.close();
+          return res.status(500).json({ success: false, message: 'Error con la sesión' });
+        }
+
+        req.session.userId = user.id;
+        req.session.save(err => {
+          db.close();
+          if (err) {
+            console.error("Error guardando sesión:", err);
+            return res.status(500).json({ success: false, message: 'Error con la sesión' });
+          }
+
+          return res.json({ success: true });
+        });
+
+      } catch (error) {
+        db.close();
+        console.error("Error comparando contraseñas:", error);
+        return res.status(500).json({ success: false, message: 'Error al verificar credenciales' });
+      }
+    });
+  });
+});
 
 // Ruta para obtener noticias
 app.get('/api/news', async (req, res) => {
@@ -56,35 +207,13 @@ app.get('/api/news', async (req, res) => {
   }
 });
 
-//autenticación de google
+app.get('/', (req, res) => {
+    const registrationMessage = req.query.registrationSuccess;
 
-passport.use(new GoogleStrategy({
-  clientID: process.env.GOOGLE_CLIENT_ID,
-  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: process.env.GOOGLE_CALLBACK_URL
-}, (accessToken, refreshToken, profile, done) => {
-  const email = profile.emails[0].value;
-  const name = profile.name.givenName;
-  const lastname = profile.name.familyName;
-  const country = profile._json.locale; // Aproximación
-  db.get("SELECT * FROM users WHERE email = ?", [email], (err, user) => {
-    if (user) return done(null, user);
-    db.run("INSERT INTO users (name, lastname, email, country) VALUES (?, ?, ?, ?)", [name, lastname, email, country], function(err) {
-      if (err) return done(err);
-      db.get("SELECT * FROM users WHERE id = ?", [this.lastID], (err, newUser) => {
-        return done(null, newUser);
-      });
+    res.render('login', {
+        message: registrationMessage || '',
+        messages: registrationMessage ? { success: true } : null
     });
-  });
-}));
-
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
-passport.deserializeUser((id, done) => {
-  db.get("SELECT * FROM users WHERE id = ?", [id], (err, user) => {
-    done(err, user);
-  });
 });
 
 app.listen(PORT, () => {
