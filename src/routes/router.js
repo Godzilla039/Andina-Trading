@@ -19,7 +19,8 @@ const {
   register,
   terms,
   maps,
-  calc
+  calc,
+  trade
 } = require('../controllers/PageControllers');
 
 // =========================
@@ -41,6 +42,7 @@ router.get('/heatmap', heatMap);               // Mapa de calor
 router.get('/news', news);                     // Noticias
 router.get('/maps', maps);                     // Mapa geográfico
 router.get('/calculator', calc);               // Calculadora
+router.get('/trade', trade);                   // Calculadora
 
 // =========================
 // Exportación del router

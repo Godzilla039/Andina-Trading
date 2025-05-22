@@ -1,0 +1,162 @@
+<div class="content">
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <div class="card">
+        <div class="card-body">
+          <div class="container">
+ <section class="portfolio-widget">
+                    <div class="header">
+                        <h1>Portafolio de acciones</h1>
+                    </div>
+
+                    <div class="tabs">
+                        <div class="tab active" data-tab="owned">Mis acciones</div>
+                        <div class="tab" data-tab="buy">Comprar acciones</div>
+                        <div class="tab" data-tab="sold">Historial de ventas</div>
+                    </div>
+
+                    <div class="portfolio-summary">
+                        <div class="summary-item">
+                            <h3>Valor Total</h3>
+                            <p></p>
+                        </div>
+                        <div class="summary-item">
+                            <h3>Ganancia/Pérdida</h3>
+                            <p class="positive"></p>
+                        </div>
+                        <div class="summary-item">
+                            <h3>Inversión Total</h3>
+                            <p></p>
+                        </div>
+                        <div class="summary-item">
+                            <h3>Acciones</h3>
+                            <p></p>
+                        </div>
+                    </div>
+
+                    <div id="owned" class="tab-content active">
+                        <div class="search-bar">
+                            <input type="text" class="search-input" placeholder="Buscar acciones...">
+                        </div>
+                        
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Acción</th>
+                                    <th>Cantidad</th>
+                                    <th>Precio Compra</th>
+                                    <th>Precio Actual</th>
+                                    <th>Ganancia/Pérdida</th>
+                                    <th>Valor</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="buy" class="tab-content">
+                <div class="search-bar">
+                    <input type="text" id="stockSearch" class="search-input" placeholder="Buscar acciones para comprar...">
+                    <div class="actions">
+                        <button id="searchBtn" class="btn btn-primary">Buscar</button>
+                        <button id="refreshBtn" class="btn btn-primary">Actualizar</button>
+                    </div>
+                </div>
+                
+                <div class="loading" id="loadingStocks" style="display: none; text-align: center; padding: 20px;">
+                    <div class="spinner"></div>
+                    <p>Cargando datos del mercado...</p>
+                </div>
+                
+                <table id="stocksTable">
+                    <thead>
+                        <tr>
+                            <th>Acción</th>
+                            <th>Precio</th>
+                            <th>Cambio (24h)</th>
+                            <th>Capitalización</th>
+                            <th>Volumen (24h)</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="stocksTableBody">
+                        <!-- Los datos se cargarán aquí dinámicamente -->
+                    </tbody>
+                </table>
+                
+                <div class="pagination">
+                    <button id="prevPage" class="btn">Anterior</button>
+                    <span id="pageInfo">Página 1</span>
+                    <button id="nextPage" class="btn">Siguiente</button>
+                </div>
+                </div>
+
+                    <div id="sold" class="tab-content">
+                        <div class="search-bar">
+                            <input type="text" class="search-input" placeholder="Buscar en historial...">
+                            <div class="actions">
+                                <button id="exportPdfBtn" class="btn btn-primary">Exportar</button>
+                            </div>
+                        </div>
+                        
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Acción</th>
+                                    <th>Cantidad</th>
+                                    <th>Tipo</th>
+                                    <th>Precio Compra</th>
+                                    <th>Precio Venta</th>
+                                    <th>Ganancia/Pérdida</th>
+                                    <th>Fecha</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="buyModal" class="buy-modal" style="display: none;">
+                    <div class="modal-center-helper">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>Comprar acciones</h3>
+                            <button class="close-modal">&times;</button>
+                        </div>
+                        <div id="modalStockInfo"></div>
+                        <div class="form-group">
+                            <label for="sharesAmount">Cantidad de acciones:</label>
+                            <input type="number" id="sharesAmount" class="form-control" min="1" value="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="orderType">Tipo de orden:</label>
+                            <select id="orderType" class="form-control">
+                            <option value="market">Mercado</option>
+                            <option value="limit">Límite</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="limitPriceGroup" style="display: none;">
+                            <label for="limitPrice">Precio límite:</label>
+                            <input type="number" id="limitPrice" class="form-control" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <p><strong>Total estimado: </strong><span id="estimatedTotal">$0.00</span></p>
+                        </div>
+                        <div class="modal-actions">
+                            <button id="cancelBuy" class="btn">Cancelar</button>
+                            <button id="confirmBuy" class="btn btn-primary">Confirmar compra</button>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+              </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

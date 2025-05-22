@@ -101,6 +101,14 @@ const calc = (req, res) => {
   res.render('calculator');
 };
 
+/**
+ * Renderiza el sistema de compra/venta de acciones
+ */
+const trade = (req, res) => {
+  res.render('trade');
+};
+
+
 // ======================
 // Exportación del módulo
 // ======================
@@ -115,5 +123,6 @@ module.exports = {
   register,
   terms,
   maps,
-  calc
+  calc,
+  trade
 };
